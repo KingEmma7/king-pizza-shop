@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const SizeSelection = ({ pizza, size, setSize }) => {
   return (
-    <div className="mx-auto max-w-sm bg-red-200 lg:max-w-none flex items-center justify-center">
+    <div className="mx-auto max-w-sm lg:max-w-none flex items-center justify-center lg:justify-start">
       <div className="flex gap-x-12 items-baseline mb0-10 font-medium">
         <label className=" flex flex-col items-center gap-x-2 py-2 cursor-pointer">
           <Image
@@ -60,7 +60,7 @@ const SizeSelection = ({ pizza, size, setSize }) => {
               size === "large"
                 ? "border-2 border-orange p-[2px] rounded-full"
                 : "border-transparent filter saturate-[0.1]"
-            }`}
+            } mb-1`}
           />
           <input
             type="radio"

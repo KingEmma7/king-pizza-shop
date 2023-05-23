@@ -7,41 +7,48 @@ import Topping from "./Topping";
 const PizzaDetails = ({ pizza }) => {
   const [size, setSize] = useState("small");
   const [crust, setCrust] = useState("traditional");
-  const [topping, setTopping] = useState([]);
-  const [toppingPrice, setToppingPrice] = useState(0);
+  const [additionalTopping, setAdditionalTopping] = useState([]);
+  const [additionalToppingPrice, setAdditionalToppingPrice] = useState(0);
   const [price, setPrice] = useState(0);
 
   useEffect(() => {
     size === "small"
-      ? setPrice(parseFloat(pizza.priceSm + toppingPrice).toFixed(2))
+      ? setPrice(parseFloat(pizza.priceSm + additionalToppingPrice).toFixed(2))
       : size === "medium"
-      ? setPrice(parseFloat(pizza.priceMd + toppingPrice).toFixed(2))
+      ? setPrice(parseFloat(pizza.priceMd + additionalToppingPrice).toFixed(2))
       : size === "large"
-      ? setPrice(parseFloat(pizza.priceLg + toppingPrice).toFixed(2))
+      ? setPrice(parseFloat(pizza.priceLg + additionalToppingPrice).toFixed(2))
       : null;
-  }, []);
+  });
 
   useEffect(() => {
-    if (topping.length > 0) {
-      const toppingPrice = topping.reduce((a, c) => a + c.price, 0);
-      setToppingPrice(toppingPrice);
-    } else setToppingPrice(0);
-  }, [topping]);
+    if (additionalTopping.length > 0) {
+      const toppingPrice = additionalTopping.reduce((a, c) => a + c.price, 0);
+      setAdditionalToppingPrice(toppingPrice);
+    } else setAdditionalToppingPrice(0);
+  }, [additionalTopping]);
 
   return (
     <div className="flex flex-col lg:flex-row lg:gap-x-8 h-full md:p-8">
       <div className="lg:flex-1 flex justify-center items-center">
         <div className="max-w-[300px] lg:max-w-none mt-6 lg:mt-0">
-          <Image width={450} height={450} src={pizza.image} alt="" priority={1} className="mx-auto relative"/>
+          <Image
+            width={450}
+            height={450}
+            src={pizza.image}
+            alt=""
+            priority={1}
+            className="mx-auto relative"
+          />
         </div>
       </div>
 
-      <div className="bg-secondary flex flex-col flex-1">
+      <div className="flex flex-col flex-1">
         <div className="flex-1 p-2 text-center lg:text-left">
           <div className="flex-1 bg-white overflow-y-scroll h-[46vh] scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-white pr-2">
             <div className="font-semibold">
               <h2 className="capitalize text-3xl mb-1">{pizza.name}</h2>
-              <div className="bg-yellow-200 mb-6 text-lg font-medium">
+              <div className="mb-6 text-lg font-medium">
                 <span>
                   {size === "small"
                     ? "25 cm"
@@ -54,13 +61,20 @@ const PizzaDetails = ({ pizza }) => {
                 <span>, {crust} crust</span>
               </div>
             </div>
-            <SizeSelection pizza={pizza} size={size} setSize={setSize}  />
-            <CrustSelection />
+            <SizeSelection pizza={pizza} size={size} setSize={setSize} />
+            <CrustSelection crust={crust} setCrust={setCrust} />
 
-            <div>Choose Topping</div>
-            <div>
+            <div className="mb-4 text-xl font-semibold">Choose Topping</div>
+            <div className="flex flex-1 flex-wrap gap-2 py-1 justify-center lg:justify-start">
               {pizza.toppings?.map((topping, index) => {
-                return <Topping key={index} />;
+                return (
+                  <Topping
+                    topping={topping}
+                    additionalTopping={additionalTopping}
+                    setAdditionalTopping={setAdditionalTopping}
+                    key={index}
+                  />
+                );
               })}
             </div>
           </div>
