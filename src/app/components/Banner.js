@@ -17,9 +17,9 @@ const Banner = () => {
           className="w-full flex flex-col lg:flex-row justify-between items-center"
         >
           <MouseParallaxChild factorX={0.1} factorY={0.2}>
-            <div className="flex flex-col items-center text-center lg:text-left flex-1 px-6 text-white">
+            <div className="flex flex-col items-center text-center lg:text-left lg:items-start flex-1 px-6 text-white">
               <div className="flex-1">
-                <div className="font-bangers text-[32px] tracking-[0.03em">
+                <div className="font-bangers text-[32px] tracking-[0.03em" >
                   Most Delicious Pizza in Accra
                 </div>
               </div>
