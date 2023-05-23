@@ -84,7 +84,7 @@ const PizzaDetails = ({ pizza }) => {
           <button className="btn btn-lg gradient w-full flex justify-center gap-x-2">
             <div>
               <div>Add to cart for:</div>
-              <div>GH {price}</div>
+              <div>GH&#162; {price}</div>
             </div>
           </button>
         </div>
