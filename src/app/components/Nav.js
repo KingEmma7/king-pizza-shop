@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Nav = () => {
   return (
-    <nav className="w-full absolute py-8 bg-pink-50/10">
+    <nav className="w-full absolute py-1 bg-pink-50/10">
       <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center gap-y-3">
         <Link href="" className="max-w-[160px] lg:max-w-max">
           <span className="text-white font-bangers text-3xl mb-3">
