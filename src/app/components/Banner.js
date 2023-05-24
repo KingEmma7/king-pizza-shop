@@ -8,8 +8,8 @@ import {
 
 const Banner = () => {
   return (
-    <section className="bg-primary bg-pattern lg:min-h-[768px] pt-16 lg:pt-16">
-      <div className="container mx-auto min-h-[768px] flex items-center justify-center">
+    <section className="bg-primary bg-pattern lg:min-h-[768px] pt-36 lg:pt-16">
+      <div className="container mx-auto min-h-[768px] min-w-[300px] flex items-center justify-center">
         <MouseParallaxContainer
           globalFactorX={0.4}
           globalFactorY={0.3}
@@ -17,7 +17,7 @@ const Banner = () => {
           className="w-full flex flex-col lg:flex-row justify-between items-center"
         >
           <MouseParallaxChild factorX={0.1} factorY={0.2}>
-            <div className="flex flex-col items-center text-center lg:text-left lg:items-start flex-1 px-6 text-white">
+            <div className="flex flex-col items-center text-center lg:text-left lg:items-start flex-1 px-3 text-white">
               <div className="flex-1">
                 <div className="font-bangers text-[32px] tracking-[0.03em" >
                   Most Delicious Pizza in Accra
