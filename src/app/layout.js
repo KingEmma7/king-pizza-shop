@@ -4,6 +4,7 @@ import CartMobile from "./components/CartMobile";
 import { Bangers, Poppins, Roboto_Condensed } from "next/font/google";
 import CartMobileIcon from "./components/CartMobileIcon";
 import CartProvider from "./context/CartContext";
+import CartDesktop from "./components/CartDesktop";
 
 const bangers = Bangers({
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
         <CartMobileIcon />
         <CartMobile />
         {children}
+        <CartDesktop />
       </body>
     </html>
     </CartProvider>
