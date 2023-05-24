@@ -112,6 +112,7 @@ useEffect(()=>{
         setIsOpen,
         addToCart,
         cart,
+        setCart,
         removeItem,
         increaseAmount,
         decreaseAmount,
