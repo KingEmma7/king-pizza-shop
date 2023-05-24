@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext();
 
@@ -7,6 +7,20 @@ const CartProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [cart, setCart] = useState([]);
+
+  const [cartTotal, setCartTotal] = useState(0)
+
+  const [itemAmount, setItemAmount] = useState(0)
+
+useEffect(()=>{
+  const amount = cart.reduce((a,c)=> a+c.amount, 0)
+  setItemAmount(amount)
+})
+
+useEffect(()=>{
+  const price = cart.reduce((a,c)=> a+Number(c.price)*c.amount,0)
+  setCartTotal(price)
+})
 
   const addToCart = (
     id,
@@ -30,13 +44,81 @@ const CartProvider = ({ children }) => {
       amount: 1,
     };
 
-    setCart([...cart, newItem])
+    const cartItemIndex = cart.findIndex(
+      (item) =>
+        item.id === id &&
+        item.price === price &&
+        item.size === size &&
+        JSON.stringify(item.additionalTopping) ===
+          JSON.stringify(additionalTopping) &&
+        item.crust === crust
+    );
 
-    console.log(cart)
+    if (cartItemIndex === -1) {
+      setCart([...cart, newItem]);
+    } else {
+      const newCart = [...cart];
+      newCart[cartItemIndex].amount += 1;
+      setCart(newCart);
+    }
+
+    setCart([...cart, newItem]);
+
+    setIsOpen(true);
+  };
+
+  const removeItem = (id, price, crust) => {
+    const itemIndex = cart.findIndex(
+      (item) => item.id === id && item.price === price && item.crust === crust
+    );
+
+    if (itemIndex !== -1) {
+      const newCart = [...cart];
+      newCart.splice(itemIndex, 1);
+      setCart(newCart);
+    }
+  };
+
+  const increaseAmount = (id, price) => {
+    const itemIndex = cart.findIndex(
+      (item) => item.id === id && item.price === price
+    );
+
+    if (itemIndex !== -1) {
+      const newCart = [...cart];
+      newCart[itemIndex].amount += 1;
+      setCart(newCart);
+    }
+  };
+
+  const decreaseAmount = (id, price) => {
+    const itemIndex = cart.findIndex(
+      (item) => item.id === id && item.price === price
+    );
+
+    if (itemIndex !== -1) {
+      const newCart = [...cart];
+      if (newCart[itemIndex].amount > 1) {
+        newCart[itemIndex].amount -= 1;
+      }
+      setCart(newCart);
+    }
   };
 
   return (
-    <CartContext.Provider value={{ isOpen, setIsOpen, addToCart, cart }}>
+    <CartContext.Provider
+      value={{
+        isOpen,
+        setIsOpen,
+        addToCart,
+        cart,
+        removeItem,
+        increaseAmount,
+        decreaseAmount,
+        itemAmount,
+        cartTotal
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
